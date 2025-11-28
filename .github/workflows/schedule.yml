@@ -3,7 +3,7 @@ name: Weather-Fetcher
 on:
   schedule:
     - cron: "0 * * * *"  # runs every hour
-  workflow_dispatch:     # optional - run manually
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+      uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -31,6 +31,9 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add weather_data.csv
+          
+          # Add all versioned weather files
+          git add weather_data_v*.csv
+
           git commit -m "Update weather data" || echo "No changes"
           git push
