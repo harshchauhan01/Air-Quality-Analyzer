@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 import os
 
-FILE_NAME = "weather_data_v1.csv"  # single file to store all data
+FILE_NAME = "weather_data_v2.csv"  # single file to store all data
 
 def fetch_and_store():
     url = "https://api.data.gov.in/resource/3b01bcb8-0b14-4abf-b6f2-c1bfd384ba69?api-key=579b464db66ec23bdd000001d2c2499fa4944ae76ca8d20687c6d3e7&format=csv&limit=4000"
