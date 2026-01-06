@@ -1,50 +1,50 @@
-name: Weather-Fetcher
+# name: Weather-Fetcher
 
-on:
-  schedule:
-    - cron: "0 * * * *"  # runs every hour
-  workflow_dispatch:
+# on:
+#   schedule:
+#     - cron: "0 * * * *"  # runs every hour
+#   workflow_dispatch:
 
-permissions:
-  contents: write
+# permissions:
+#   contents: write
 
-# Prevent multiple runs pushing at the same time
-concurrency:
-  group: weather-data-updater
-  cancel-in-progress: false
+# # Prevent multiple runs pushing at the same time
+# concurrency:
+#   group: weather-data-updater
+#   cancel-in-progress: false
 
-jobs:
-  fetch:
-    runs-on: ubuntu-latest
+# jobs:
+#   fetch:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0   # REQUIRED for rebase
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0   # REQUIRED for rebase
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.10"
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
+#       - name: Install dependencies
+#         run: pip install -r requirements.txt
 
-      - name: Run script
-        run: python fetch_weather_data.py
+#       - name: Run script
+#         run: python fetch_weather_data.py
 
-      - name: Commit & Push changes
-        run: |
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
+#       - name: Commit & Push changes
+#         run: |
+#           git config user.email "github-actions[bot]@users.noreply.github.com"
+#           git config user.name "github-actions[bot]"
 
-          git add weather_data_v*.csv
+#           git add weather_data_v*.csv
           
-          git commit -m "Update weather data" || echo "No changes to commit"
+#           git commit -m "Update weather data" || echo "No changes to commit"
 
-          # 🔑 pull latest changes safely
-          git pull --rebase origin main
+#           # 🔑 pull latest changes safely
+#           git pull --rebase origin main
 
-          # push explicitly to main
-          git push origin main
+#           # push explicitly to main
+#           git push origin main
